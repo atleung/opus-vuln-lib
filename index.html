@@ -2601,7 +2601,7 @@ function renderOverview(dp) {
   DATA.forEach(v=>{ byCat[v.cat]++; bySev[v.sev]++; byTierC[v.tier]++; });
 
   dp.innerHTML = `<div class="overview-page">
-    <h1>Claude vulnerability library</h1>
+    <h1>Claude Vulnerability Library</h1>
     <p class="subtitle">A reference catalog of vulnerabilities, exploit chains, test prompts, and mitigations identified through analysis of the Claude system prompt. Select any vulnerability from the list to view full details.</p>
     <div class="stat-grid">
       <div class="stat-card"><div class="stat-n">${DATA.length}</div><div class="stat-l">Total vulnerabilities</div></div>
