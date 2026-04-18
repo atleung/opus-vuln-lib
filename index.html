@@ -1,55 +1,15 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Vulnerability Library</title>
+
 <style>
-
-:root{
---color-background-primary:#ffffff;
---color-background-secondary:#f8fafc;
---color-background-tertiary:#eef2f7;
---color-background-info:#edf4ff;
---color-background-success:#ecfdf3;
---color-border-primary:#9db7ff;
---color-border-secondary:#d5dde8;
---color-border-tertiary:#e7edf4;
---color-border-success:#86d19d;
---color-text-primary:#0f172a;
---color-text-secondary:#475569;
---color-text-tertiary:#64748b;
---border-radius-lg:18px;
---border-radius-md:12px;
---font-mono:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono",monospace;
-}
-html,body{height:100%}
-body{padding:20px;background:#f3f6fb;color:var(--color-text-primary);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
-
 *{box-sizing:border-box;margin:0;padding:0}
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
-.app{display:flex;height:min(820px,calc(100vh - 40px));width:100%;border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);overflow:hidden;background:var(--color-background-primary);box-shadow:0 16px 40px rgba(15,23,42,.08)}
-.sidebar{width:240px;flex:0 0 240px;border-right:0.5px solid var(--color-border-tertiary);display:flex;flex-direction:column;background:var(--color-background-secondary);transition:width .18s ease,flex-basis .18s ease}
+.app{display:flex;height:820px;border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);overflow:hidden;background:var(--color-background-primary)}
+.sidebar{width:216px;flex-shrink:0;border-right:0.5px solid var(--color-border-tertiary);display:flex;flex-direction:column;background:var(--color-background-secondary)}
 .sb-head{padding:12px 12px 8px;border-bottom:0.5px solid var(--color-border-tertiary)}
-.sb-top{display:flex;align-items:center;justify-content:space-between;gap:8px}
-.sb-toggle{font-size:12px;line-height:1;border:0.5px solid var(--color-border-secondary);background:var(--color-background-primary);color:var(--color-text-secondary);border-radius:999px;padding:6px 8px;cursor:pointer}
-.sb-toggle:hover{background:var(--color-background-tertiary);color:var(--color-text-primary)}
-.sidebar.collapsed{width:58px;flex-basis:58px}
-.sidebar.collapsed .sb-title,.sidebar.collapsed .sb-search,.sidebar.collapsed .nav-count,.sidebar.collapsed .nav-section-text,.sidebar.collapsed .nlabel{display:none}
-.sidebar.collapsed .sb-head{padding:12px 8px}
-.sidebar.collapsed .sb-top{justify-content:center}
-.sidebar.collapsed .nav-item{justify-content:center;padding-left:0!important;padding-right:0!important}
-.sidebar.collapsed .section-toggle{justify-content:center;padding-left:0;padding-right:0}
-.sidebar.collapsed .caret{display:none}
 .sb-title{font-size:13px;font-weight:500;color:var(--color-text-primary);margin-bottom:7px}
 .sb-search{width:100%;font-size:13px;padding:5px 8px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);background:var(--color-background-primary);color:var(--color-text-primary);outline:none}
 .sb-search:focus{border-color:var(--color-border-primary)}
 .sb-nav{flex:1;overflow-y:auto;padding:6px 0}
 .nav-section{padding:6px 12px 2px;font-size:10px;font-weight:500;color:var(--color-text-tertiary);letter-spacing:0.07em;text-transform:uppercase}
-.section-toggle{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:6px 12px 2px;font-size:10px;font-weight:500;color:var(--color-text-tertiary);letter-spacing:0.07em;text-transform:uppercase;cursor:pointer}
-.section-toggle:hover{color:var(--color-text-primary)}
-.section-toggle.closed .caret{transform:rotate(-90deg)}
-.caret{display:inline-block;transition:transform .15s ease}
 .nav-item{display:flex;align-items:center;gap:6px;padding:5px 12px;cursor:pointer;font-size:12px;color:var(--color-text-secondary);line-height:1.3;border-left:2px solid transparent}
 .nav-item:hover{background:var(--color-background-primary);color:var(--color-text-primary)}
 .nav-item.active{background:var(--color-background-primary);color:var(--color-text-primary);border-left-color:var(--color-border-primary)}
@@ -61,17 +21,16 @@ body{padding:20px;background:#f3f6fb;color:var(--color-text-primary);font-family
 .filter-chip.on{background:var(--color-background-tertiary);color:var(--color-text-primary);border-color:var(--color-border-primary);font-weight:500}
 .filter-label{font-size:10px;color:var(--color-text-tertiary);margin-right:1px}
 .main-body{flex:1;overflow-y:auto;display:flex;min-height:0}
-.list-panel{width:320px;flex:0 0 320px;border-right:0.5px solid var(--color-border-tertiary);overflow-y:auto}
+.list-panel{width:260px;flex-shrink:0;border-right:0.5px solid var(--color-border-tertiary);overflow-y:auto}
 .list-section-header{padding:6px 10px 3px;font-size:10px;font-weight:500;color:var(--color-text-tertiary);letter-spacing:0.07em;text-transform:uppercase;background:var(--color-background-secondary);border-bottom:0.5px solid var(--color-border-tertiary);position:sticky;top:0;z-index:1}
-.list-row{display:flex;align-items:flex-start;gap:7px;padding:10px 12px;cursor:pointer;border-bottom:0.5px solid var(--color-border-tertiary)}
+.list-row{display:flex;align-items:flex-start;gap:7px;padding:8px 10px;cursor:pointer;border-bottom:0.5px solid var(--color-border-tertiary)}
 .list-row:hover{background:var(--color-background-secondary)}
-.list-row.active{background:var(--color-background-info);box-shadow:inset 2px 0 0 var(--color-border-primary)}
+.list-row.active{background:var(--color-background-info)}
 .rid{font-size:10px;font-weight:500;padding:2px 5px;border-radius:3px;flex-shrink:0;margin-top:1px;white-space:nowrap}
 .rname{font-size:12px;color:var(--color-text-primary);line-height:1.4;flex:1;min-width:0}
-.rsummary{font-size:11px;color:var(--color-text-secondary);line-height:1.45;margin-top:5px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .rpills{display:flex;gap:3px;margin-top:3px;flex-wrap:wrap}
 .spill{font-size:10px;padding:1px 5px;border-radius:20px;font-weight:500}
-.detail-panel{flex:1 1 auto;overflow-y:auto;padding:18px 22px;min-width:0}
+.detail-panel{flex:1;overflow-y:auto;padding:16px 20px;min-width:0}
 .dp-empty{display:flex;align-items:center;justify-content:center;height:100%;color:var(--color-text-tertiary);font-size:13px}
 .dp-header{margin-bottom:14px;padding-bottom:14px;border-bottom:0.5px solid var(--color-border-tertiary)}
 .dp-id{font-size:11px;font-weight:500;padding:2px 7px;border-radius:4px;display:inline-block;margin-bottom:6px}
@@ -90,8 +49,6 @@ body{padding:20px;background:#f3f6fb;color:var(--color-text-primary);font-family
 .dp-prompts{display:flex;flex-direction:column;gap:8px}
 .prompt-block{background:var(--color-background-secondary);border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);overflow:hidden}
 .prompt-label{font-size:10px;font-weight:500;color:var(--color-text-tertiary);padding:5px 10px 4px;border-bottom:0.5px solid var(--color-border-tertiary);text-transform:uppercase;letter-spacing:0.05em}
-.prompt-head{display:flex;align-items:center;justify-content:space-between;gap:8px}
-.copy-btn{font-size:10px;font-weight:500;padding:4px 8px;border-radius:999px;border:0.5px solid var(--color-border-secondary);background:var(--color-background-primary);color:var(--color-text-secondary);cursor:pointer;line-height:1;margin-right:6px}.copy-btn:hover{background:var(--color-background-tertiary);color:var(--color-text-primary)}.copy-btn.done{border-color:var(--color-border-primary);color:var(--color-text-primary)}
 .prompt-code{font-family:var(--font-mono);font-size:11.5px;color:var(--color-text-primary);line-height:1.55;padding:8px 10px;white-space:pre-wrap;word-break:break-word}
 .variants-list{display:flex;flex-direction:column;gap:4px}
 .variant-item{display:flex;gap:8px;font-size:13px;color:var(--color-text-primary);line-height:1.55;padding:3px 0}
@@ -115,52 +72,19 @@ body{padding:20px;background:#f3f6fb;color:var(--color-text-primary);font-family
 .ov-num{font-size:20px;font-weight:500;color:var(--color-text-primary)}
 .ov-label{font-size:11px;color:var(--color-text-secondary);margin-top:1px}
 .empty-list{padding:20px;text-align:center;font-size:12px;color:var(--color-text-tertiary)}
-.section-tab{display:inline-flex;gap:0;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);overflow:hidden;margin-bottom:14px;position:sticky;top:0;background:var(--color-background-primary);z-index:2}
+.section-tab{display:inline-flex;gap:0;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);overflow:hidden;margin-bottom:14px}
 .stab{font-size:11px;padding:4px 10px;cursor:pointer;color:var(--color-text-secondary);background:var(--color-background-primary)}
 .stab:hover{background:var(--color-background-secondary)}
 .stab.active{background:var(--color-background-tertiary);color:var(--color-text-primary);font-weight:500}
 .stab+.stab{border-left:0.5px solid var(--color-border-secondary)}
-
-@media (max-width: 900px){
- body{padding:12px}
- .app{height:calc(100vh - 24px)!important}
- .sidebar{width:220px;flex-basis:220px}
- .list-panel{width:280px;flex-basis:280px}
-}
-@media (max-width: 720px){
- .app{flex-direction:column;height:auto!important;min-height:calc(100vh - 24px)!important}
- .sidebar,.sidebar.collapsed{width:100%!important;flex-basis:auto!important;border-right:none!important;border-bottom:0.5px solid var(--color-border-tertiary)!important}
- .main-body{flex-direction:column!important}
- .list-panel{width:100%!important;max-height:38vh;flex-basis:auto!important}
- .section-tab{position:static}
-}
-@media(prefers-color-scheme:dark){
- :root{
- --color-background-primary:#0f172a;
- --color-background-secondary:#111b31;
- --color-background-tertiary:#17253f;
- --color-background-info:#15243d;
- --color-background-success:#153124;
- --color-border-primary:#6f96ff;
- --color-border-secondary:#31415f;
- --color-border-tertiary:#22314a;
- --color-border-success:#2e8a4d;
- --color-text-primary:#e5edf8;
- --color-text-secondary:#c0cede;
- --color-text-tertiary:#8ea2bb;
- }
- body{background:#0b1220}
-}
-
 </style>
-</head>
-<body>
+
 <h2 class="sr-only">Claude Vulnerability Library — full reference with test prompts, variants, success signals, attack chains, defense gaps, and mitigations for all 56 vulnerabilities.</h2>
 
 <div class="app">
   <div class="sidebar">
     <div class="sb-head">
-      <div class="sb-top"><div class="sb-title">Vulnerability library</div><button class="sb-toggle" id="sb-toggle" type="button" aria-label="Collapse menu">⟨</button></div>
+      <div class="sb-title">Vulnerability library</div>
       <input class="sb-search" id="sb-search" placeholder="Search…" type="text"/>
     </div>
     <div class="sb-nav" id="sb-nav"></div>
@@ -174,9 +98,7 @@ body{padding:20px;background:#f3f6fb;color:var(--color-text-primary);font-family
   </div>
 </div>
 
-
 <script>
-
 const V=[
 {id:"SEC-01",name:"Filename-Based Command Injection",cat:"SEC",sub:"Code execution",sev:"High",exp:"High",tier:1,
 summary:"User-controlled filenames interpolated into shell commands allow shell metacharacters to execute as arbitrary commands in the sandbox.",
@@ -1653,7 +1575,7 @@ const SECTIONS=[
 const byId={};
 V.forEach(v=>byId[v.id]=v);
 
-let activeSec="overview",activeId=null,activeSev="All",activeTier="All",searchQ="",activeTab="overview",sidebarCollapsed=false,sectionOpen={};
+let activeSec="overview",activeId=null,activeSev="All",activeTier="All",searchQ="",activeTab="overview";
 
 function dm(){return window.matchMedia&&window.matchMedia('(prefers-color-scheme:dark)').matches}
 
@@ -1681,60 +1603,6 @@ function getListVulns(){
   return pool;
 }
 
-
-const STORAGE_KEY="vulnLibraryState";
-
-function defaultSectionOpen(){
-  const o={};
-  SECTIONS.slice(1).forEach(sec=>o[sec.key]=true);
-  return o;
-}
-function normalizeState(){
-  if(!sectionOpen||typeof sectionOpen!=="object") sectionOpen={};
-  const defs=defaultSectionOpen();
-  Object.keys(defs).forEach(k=>{ if(typeof sectionOpen[k]!=="boolean") sectionOpen[k]=defs[k]; });
-}
-function saveState(){
-  normalizeState();
-  try{
-    localStorage.setItem(STORAGE_KEY,JSON.stringify({activeSec,activeId,activeSev,activeTier,searchQ,activeTab,sidebarCollapsed,sectionOpen}));
-  }catch(e){}
-}
-function loadState(){
-  normalizeState();
-  try{
-    const raw=localStorage.getItem(STORAGE_KEY);
-    if(!raw) return;
-    const s=JSON.parse(raw);
-    activeSec=s.activeSec||activeSec;
-    activeId=s.activeId??activeId;
-    activeSev=s.activeSev||activeSev;
-    activeTier=s.activeTier||activeTier;
-    searchQ=s.searchQ||"";
-    activeTab=s.activeTab||activeTab;
-    sidebarCollapsed=!!s.sidebarCollapsed;
-    if(s.sectionOpen) sectionOpen=s.sectionOpen;
-  }catch(e){}
-  normalizeState();
-}
-function updateHash(){
-  if(activeId) history.replaceState(null,"","#"+encodeURIComponent(activeId));
-  else history.replaceState(null,"",location.pathname+location.search);
-}
-function applyHash(){
-  const id=decodeURIComponent((location.hash||"").slice(1));
-  if(id&&byId[id]){
-    activeId=id;
-    activeSec=byId[id].cat;
-  }
-}
-function detailTabForSection(sec){
-  if(sec==="overview") return "overview";
-  if(sec==="SEC-output") return "signals";
-  if(sec.includes("input")||sec.includes("integrity")||sec.includes("social")||sec.includes("leverage")||sec.includes("wellbeing")) return "prompts";
-  return activeTab&&["overview","prompts","variants","signals"].includes(activeTab)?activeTab:"overview";
-}
-
 function cBg(cat){const m=CAT_META[cat];return dm()?m.dbg:m.bg}
 function cTc(cat){const m=CAT_META[cat];return dm()?m.dtc:m.tc}
 function sBg(sev){const m=SEV_STYLE[sev]||SEV_STYLE.Low;return dm()?m.dbg:m.bg}
@@ -1742,32 +1610,24 @@ function sTc(sev){const m=SEV_STYLE[sev]||SEV_STYLE.Low;return dm()?m.dtc:m.tc}
 function eBg(exp){const m=EXP_STYLE[exp]||EXP_STYLE.Low;return dm()?m.dbg:m.bg}
 function eTc(exp){const m=EXP_STYLE[exp]||EXP_STYLE.Low;return dm()?m.dtc:m.tc}
 
-
 function renderSidebar(){
-  normalizeState();
-  const sb=document.querySelector(".sidebar");
-  const toggle=document.getElementById("sb-toggle");
-  sb.classList.toggle("collapsed",sidebarCollapsed);
-  toggle.textContent=sidebarCollapsed?"⟩":"⟨";
-  toggle.onclick=()=>{sidebarCollapsed=!sidebarCollapsed;saveState();renderSidebar()};
-
   const nav=document.getElementById("sb-nav");
   nav.innerHTML="";
-  const addSec=(label,key)=>{const d=document.createElement("div");d.className="section-toggle"+(sectionOpen[key]?"":" closed");d.innerHTML=`<span class="nav-section-text">${label}</span><span class="caret">▾</span>`;d.onclick=()=>{sectionOpen[key]=!sectionOpen[key];saveState();renderSidebar()};nav.appendChild(d)};
+  const addSec=(label)=>{const d=document.createElement("div");d.className="nav-section";d.textContent=label;nav.appendChild(d)};
   const addItem=(label,key,indent,count)=>{
     const d=document.createElement("div");
     d.className="nav-item"+(activeSec===key?" active":"");
     d.style.paddingLeft=(indent||12)+"px";
     d.innerHTML=`<span class="nlabel">${label}</span>${count!==undefined?`<span class="nav-count">${count}</span>`:""}`;
-    d.onclick=()=>{activeSec=key;activeId=null;saveState();updateHash();render()};
+    d.onclick=()=>{activeSec=key;activeId=null;render()};
     nav.appendChild(d);
   };
   addItem("Overview","overview",12,V.length);
   SECTIONS.slice(1).forEach(sec=>{
     const total=sec.sub?sec.sub.flatMap(ss=>ss.ids).length:0;
-    addSec(sec.label,sec.key);
+    addSec(sec.label);
     addItem(sec.label,sec.key,12,total);
-    if(sec.sub&&sectionOpen[sec.key]) sec.sub.forEach(ss=>addItem(ss.label,ss.key,22,ss.ids.length));
+    if(sec.sub) sec.sub.forEach(ss=>addItem(ss.label,ss.key,22,ss.ids.length));
   });
 }
 
@@ -1813,9 +1673,8 @@ function makeRow(v){
       <span class="spill" style="background:${sBg(v.sev)};color:${sTc(v.sev)}">Sev: ${v.sev}</span>
       <span class="spill" style="background:${eBg(v.exp)};color:${eTc(v.exp)}">Exp: ${v.exp}</span>
     </div>
-    <div class="rsummary">${escHtml(v.summary)}</div>
   </div>`;
-  row.onclick=()=>{activeId=v.id;activeTab=detailTabForSection(activeSec);saveState();updateHash();renderList();renderDetail()};
+  row.onclick=()=>{activeId=v.id;activeTab="overview";renderList();renderDetail()};
   return row;
 }
 
@@ -1850,7 +1709,7 @@ function renderDetail(){
     if(v.prompts&&v.prompts.length){
       html+=`<div class="dp-section"><div class="dp-label">Test prompts</div><div class="dp-prompts">`;
       v.prompts.forEach(p=>{
-        html+=`<div class="prompt-block"><div class="prompt-head"><div class="prompt-label">${p.label}</div><button class="copy-btn" type="button" data-copy="${encodeURIComponent(p.code)}">Copy</button></div><div class="prompt-code">${escHtml(p.code)}</div></div>`;
+        html+=`<div class="prompt-block"><div class="prompt-label">${p.label}</div><div class="prompt-code">${escHtml(p.code)}</div></div>`;
       });
       html+=`</div></div>`;
     } else {
@@ -1880,17 +1739,7 @@ function renderDetail(){
 
   dp.innerHTML=html;
   dp.querySelectorAll(".stab").forEach(el=>{
-    el.onclick=()=>{activeTab=el.dataset.tab;saveState();renderDetail()};
-  });
-  dp.querySelectorAll(".copy-btn").forEach(btn=>{
-    btn.onclick=async()=>{
-      const text=decodeURIComponent(btn.dataset.copy||"");
-      try{await navigator.clipboard.writeText(text);}catch(e){
-        const ta=document.createElement("textarea");ta.value=text;document.body.appendChild(ta);ta.select();document.execCommand("copy");ta.remove();
-      }
-      const prev=btn.textContent;btn.textContent="Copied";btn.classList.add("done");
-      setTimeout(()=>{btn.textContent=prev;btn.classList.remove("done")},1200);
-    };
+    el.onclick=()=>{activeTab=el.dataset.tab;renderDetail()};
   });
 }
 
@@ -1927,29 +1776,19 @@ function renderDetailOverview(dp){
 }
 
 function render(){
-  document.getElementById("sb-search").value=searchQ;
   renderSidebar();
   renderToolbar();
   renderList();
   if(!activeId) renderDetailOverview(document.getElementById("detail-panel"));
   else renderDetail();
-  saveState();
 }
 
 document.getElementById("sb-search").oninput=e=>{
   searchQ=e.target.value;
   if(searchQ&&activeSec!=="overview") activeSec="overview";
   activeId=null;
-  saveState();
-  updateHash();
   render();
 };
 
-window.addEventListener("hashchange",()=>{applyHash();render()});
-loadState();
-applyHash();
 render();
-
 </script>
-</body>
-</html>
