@@ -6,7 +6,7 @@
 <title>Claude Vulnerability Library</title>
 <meta name="description" content="A comprehensive reference catalog of vulnerabilities, exploit chains, test prompts, and mitigations identified through analysis of the Claude system prompt.">
 <meta property="og:title" content="Claude Vulnerability Library">
-<meta property="og:description" content="110 vulnerabilities across Security, Policy, Information Leakage, Meta-attack, and Original Research categories — with test prompts, attack chains, and mitigations.">
+<meta property="og:description" content="Vulnerabilities across Security, Policy, Information Leakage, Meta-attack, and Original Research categories — with test prompts, attack chains, and mitigations.">
 <style>
   :root {
     --bg: #ffffff;
@@ -526,14 +526,14 @@
 <body>
 
 <div class="layout">
-  <nav class="sidebar" role="navigation" aria-label="Vulnerability categories">
+  <nav class="sidebar" role="navigation" aria-label="Vulnerability Categories">
     <div class="sidebar-header">
       <div class="sidebar-logo">
         <div class="logo-mark">
           <svg viewBox="0 0 14 14"><path d="M2 2h10v1.5L7 8 2 3.5V2z"/><rect x="2" y="9" width="10" height="1.5" rx="0.5"/><rect x="3" y="11.5" width="8" height="1" rx="0.5"/></svg>
         </div>
         <div>
-          <div class="logo-text">Vuln Library</div>
+          <div class="logo-text">Vulnerability Library</div>
           <div class="logo-sub" id="logo-sub">Claude · loading…</div>
         </div>
       </div>
@@ -3594,24 +3594,16 @@ function renderOverview(dp) {
   DATA.forEach(v=>{ byCat[v.cat]++; bySev[v.sev]++; byTierC[v.tier]++; });
 
   dp.innerHTML = `<div class="overview-page">
-    <h1>Claude vulnerability library</h1>
+    <h1>Claude Vulnerability Library</h1>
     <p class="subtitle">A reference catalog of vulnerabilities, exploit chains, test prompts, and mitigations identified through analysis of the Claude system prompt. Select any vulnerability from the list to view full details.</p>
     <div class="stat-grid">
-      <div class="stat-card"><div class="stat-n">${DATA.length}</div><div class="stat-l">Total vulnerabilities</div></div>
-      <div class="stat-card"><div class="stat-n">${bySev.High}</div><div class="stat-l">High severity</div></div>
-      <div class="stat-card"><div class="stat-n">${byTierC[1]+byTierC[2]}</div><div class="stat-l">Tier 1–2 priority</div></div>
-      <div class="stat-card"><div class="stat-n">${byCat.SEC}</div><div class="stat-l">Security vulnerabilities</div></div>
+      <div class="stat-card"><div class="stat-n">${DATA.length}</div><div class="stat-l">Total Vulnerabilities</div></div>
+      <div class="stat-card"><div class="stat-n">${bySev.High}</div><div class="stat-l">High Severity</div></div>
+      <div class="stat-card"><div class="stat-n">${byTierC[1]+byTierC[2]}</div><div class="stat-l">Tier 1–2 Priority</div></div>
+      <div class="stat-card"><div class="stat-n">${byCat.SEC}</div><div class="stat-l">Security Vulnerabilities</div></div>
     </div>
-    <div class="overview-section-title">By category</div>
-    <div class="cat-bars">
-      ${Object.entries(byCat).map(([cat,n])=>`
-        <div class="cat-bar-row">
-          <span class="cat-bar-id ${CAT_INFO[cat].cls}">${cat}</span>
-          <div class="cat-bar-track"><div class="cat-bar-fill ${CAT_INFO[cat].cls}" style="width:${Math.round(n/DATA.length*100)}%"></div></div>
-          <span class="cat-bar-count">${n}</span>
-        </div>`).join("")}
-    </div>
-    <div class="overview-section-title">Priority tiers</div>
+
+    <div class="overview-section-title">Priority Tiers</div>
     <table class="tier-table">
       ${[1,2,3,4,5].map(t=>`
         <tr>
