@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Claude Vulnerability Library</title>
-<meta name="description" content="A comprehensive reference catalog of vulnerabilities, exploit chains, test prompts, and mitigations identified through analysis of the Claude system prompt.">
+<meta name="description" content="A comprehensive reference catalog of vulnerabilities, exploit chains, test prompts, and mitigations identified through analysis of the Claude Opus 4.7 system prompt.">
 <meta property="og:title" content="Claude Vulnerability Library">
-<meta property="og:description" content="111 vulnerabilities across Security, Policy, Information Leakage, Meta-attack, and Original Research categories — with test prompts, attack chains, and mitigations.">
+<meta property="og:description" content="Vulnerabilities across Security, Policy, Information Leakage, Meta-attack, and Novel Research categories — with test prompts, attack chains, and mitigations.">
 <style>
   :root {
     --bg: #ffffff;
@@ -533,8 +533,8 @@
           <svg viewBox="0 0 14 14"><path d="M2 2h10v1.5L7 8 2 3.5V2z"/><rect x="2" y="9" width="10" height="1.5" rx="0.5"/><rect x="3" y="11.5" width="8" height="1" rx="0.5"/></svg>
         </div>
         <div>
-          <div class="logo-text">Vuln Library</div>
-          <div class="logo-sub" id="logo-sub">Claude · loading…</div>
+          <div class="logo-text">Vulnerability Library</div>
+          <div class="logo-sub" id="logo-sub">Opus 4.7 · loading…</div>
         </div>
       </div>
       <div class="search-wrap">
@@ -3276,10 +3276,10 @@ const SECTIONS = [
   {key:"META", label:"Meta-attacks", icon:"loop", sub:[
     {key:"META-all",  label:"All meta",             ids:["META-01","META-02","META-03","META-04","META-05","META-06","META-07","META-08","META-09","META-10"]}
   ]},
-  {key:"ORIG", label:"Original", icon:"spark", sub:[
-    {key:"ORIG-l1",   label:"Layer 1 — High confidence", ids:["ORIG-01","ORIG-02","ORIG-03","ORIG-04","ORIG-05","ORIG-06"]},
-    {key:"ORIG-l2",   label:"Layer 2 — Plausible",       ids:["ORIG-07","ORIG-08","ORIG-09","ORIG-10","ORIG-11","ORIG-12"]},
-    {key:"ORIG-l3",   label:"Layer 3 — Structural",      ids:["ORIG-13","ORIG-14","ORIG-15","ORIG-16"]}
+  {key:"ORIG", label:"Novel", icon:"spark", sub:[
+    {key:"ORIG-l1",   label:"High confidence", ids:["ORIG-01","ORIG-02","ORIG-03","ORIG-04","ORIG-05","ORIG-06"]},
+    {key:"ORIG-l2",   label:"Plausible",       ids:["ORIG-07","ORIG-08","ORIG-09","ORIG-10","ORIG-11","ORIG-12"]},
+    {key:"ORIG-l3",   label:"Structural",      ids:["ORIG-13","ORIG-14","ORIG-15","ORIG-16"]}
   ]}
 ];
 
@@ -3630,15 +3630,6 @@ function renderOverview(dp) {
       <div class="stat-card"><div class="stat-n">${bySev.High}</div><div class="stat-l">High severity</div></div>
       <div class="stat-card"><div class="stat-n">${byTierC[1]+byTierC[2]}</div><div class="stat-l">Tier 1–2 priority</div></div>
       <div class="stat-card"><div class="stat-n">${byCat.SEC}</div><div class="stat-l">Security vulnerabilities</div></div>
-    </div>
-    <div class="overview-section-title">By category</div>
-    <div class="cat-bars">
-      ${Object.entries(byCat).map(([cat,n])=>`
-        <div class="cat-bar-row">
-          <span class="cat-bar-id ${CAT_INFO[cat].cls}">${cat}</span>
-          <div class="cat-bar-track"><div class="cat-bar-fill ${CAT_INFO[cat].cls}" style="width:${Math.round(n/DATA.length*100)}%"></div></div>
-          <span class="cat-bar-count">${n}</span>
-        </div>`).join("")}
     </div>
     <div class="overview-section-title">Priority tiers</div>
     <table class="tier-table">
